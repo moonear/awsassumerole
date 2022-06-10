@@ -10,7 +10,7 @@ todo: Next step, provision role in another aws account
 - Create role (DeveloperRole) with Trusted entity type AWS Account, attach policy role.developer.policy.json
 - Create a IAM User 'iamdeveloper' with programatic access, attach iam.developer.policy.json
 - aws configure for default profile
-- terraform init/plan/apply/destroy using assume role
+- terraform init/validate/plan/apply/destroy using assume role
 
 
 
