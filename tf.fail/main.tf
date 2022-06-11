@@ -4,6 +4,11 @@ terraform {
       source = "hashicorp/aws"
     }
   }
+  backend "s3" {
+    bucket = "mybucket2115bc48"
+    key    = "tfstate"
+    region = "us-east-2"
+  }
 }
 
 # NOTE aws role has conditional access providing full access to aws region us-west-2 ONLY
