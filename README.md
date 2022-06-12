@@ -18,7 +18,63 @@
 - Create policy to role providing permitted permissions for terraform activities in target account (s3policyforterraform.json)
 - Attach policy to role
 
+## Terraform Docker Image 
+- set appropriate values in file `s3.tfbackend` to store/access s3 backend
+- set appropriate aws role in file `terraform.tfvars`
+- Create Access keys for IAM user 'tfuser'
+- set access keys in environment
+- pull docker image for terraform
+- run terraform docker image with env variables and mounting tf directory
 
+```bash
+export ACCESS_KEY=
+export SECRET_ACCESS_KEY=
+
+docker pull hashicorp/terraform:1.2.2
+
+docker run -it --mount type=bind,source="$(pwd)/tf",target=/tf \
+  -w /tf \
+  -e AWS_ACCESS_KEY_ID=$ACCESS_KEY \
+  -e AWS_SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY \
+  -e AWS_DEFAULT_REGION=us-west-2 \
+  hashicorp/terraform:1.2.2 init -backend-config="s3.tfbackend"
+
+docker run -it --mount type=bind,source="$(pwd)/tf",target=/tf \
+  -w /tf \
+  -e AWS_ACCESS_KEY_ID=$ACCESS_KEY \
+  -e AWS_SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY \
+  -e AWS_DEFAULT_REGION=us-west-2 \
+  hashicorp/terraform:1.2.2 validate
+
+docker run -it --mount type=bind,source="$(pwd)/tf",target=/tf \
+  -w /tf \
+  -e AWS_ACCESS_KEY_ID=$ACCESS_KEY \
+  -e AWS_SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY \
+  -e AWS_DEFAULT_REGION=us-west-2 \
+  hashicorp/terraform:1.2.2 plan
+
+docker run -it --mount type=bind,source="$(pwd)/tf",target=/tf \
+  -w /tf \
+  -e AWS_ACCESS_KEY_ID=$ACCESS_KEY \
+  -e AWS_SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY \
+  -e AWS_DEFAULT_REGION=us-west-2 \
+  hashicorp/terraform:1.2.2 apply -auto-approve
+
+docker run -it --mount type=bind,source="$(pwd)/tf",target=/tf \
+  -w /tf \
+  -e AWS_ACCESS_KEY_ID=$ACCESS_KEY \
+  -e AWS_SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY \
+  -e AWS_DEFAULT_REGION=us-west-2 \
+  hashicorp/terraform:1.2.2 state list
+
+docker run -it --mount type=bind,source="$(pwd)/tf",target=/tf \
+  -w /tf \
+  -e AWS_ACCESS_KEY_ID=$ACCESS_KEY \
+  -e AWS_SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY \
+  -e AWS_DEFAULT_REGION=us-west-2 \
+  hashicorp/terraform:1.2.2 apply -destroy -auto-approve
+
+```
 
 
 
