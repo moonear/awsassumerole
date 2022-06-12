@@ -76,6 +76,15 @@ docker run -it --mount type=bind,source="$(pwd)/tf",target=/tf \
 
 ```
 
+# Other Considerations
+
+## s3 backend versioning
+
+## state locking [https://www.terraform.io/language/settings/backends/s3#dynamodb-table-permissions](https://www.terraform.io/language/settings/backends/s3#dynamodb-table-permissions)
+
+## sts:SourceIdentity & sts:RoleSessionName [https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_permissions-to-switch.html](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_permissions-to-switch.html)
+
+## create image with pre-installed plugins [https://learn.hashicorp.com/tutorials/terraform/automate-terraform](https://learn.hashicorp.com/tutorials/terraform/automate-terraform)
 
 
 # references
