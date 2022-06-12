@@ -1,0 +1,33 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "terraformStateBucket",
+			"Principal": {
+				"AWS": "arn:aws:iam::000000000000:user/tfuser"
+			},
+			"Effect": "Allow",
+			"Action": [
+				"s3:ListBucket"
+			],
+			"Resource": [
+				"arn:aws:s3:::tfstatebucket999999999999999999999999999999999999"
+			]
+		},
+		{
+			"Sid": "terraformStateBucketObjects",
+			"Principal": {
+				"AWS": "arn:aws:iam::000000000000:user/tfuser"
+			},
+			"Effect": "Allow",
+			"Action": [
+				"s3:GetObject",
+				"s3:PutObject",
+				"s3:DeleteObject"
+			],
+			"Resource": [
+				"arn:aws:s3:::tfstatebucket999999999999999999999999999999999999/terraform.tfstate"
+			]
+		}
+	]
+}
